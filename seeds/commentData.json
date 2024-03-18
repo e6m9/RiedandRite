@@ -1,17 +1,17 @@
 [
     {
         "postId": 1,
-        "userId": 1,
+        "userId": 0,
         "body": "I have given so much blood and sweat and tears for this cause. what have you given?"
     },
     {
         "postId": 1,
-        "userId": 2,
+        "userId": 1,
         "body": "I don't know who you think you are, but I lost EVERYTHING!"
     },
     {
         "postId": 2,
-        "userId": 3,
+        "userId": 2,
         "body": "lol"
     }
 ]

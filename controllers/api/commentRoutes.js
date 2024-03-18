@@ -33,7 +33,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // create a new comment
-router.comment('/', async (req,res) => {
+router.post('/', async (req,res) => {
     const { title, body, userId } = req.body;
 
     try {
@@ -74,3 +74,5 @@ router.delete('/:id', async (req, res) => {
         res.status(500).json(err);
     }
 });
+
+module.exports = router;

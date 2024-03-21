@@ -1,20 +1,6 @@
 const router = require('express').Router();
-const { Post, User } = require('../models');
+const { Post, User, Comment } = require('../models');
 const withAuth = require('../utils/auth');
-
-// router.get /dashboard
-router.get('/dashboard', async (req, res) => {
-  try {
-    res.json({
-      // get logged in user data, posts, and comments
-
-      // res.render(dashboard.handlebars)
-    })
-  } catch (err) {
-    console.log(err)
-    res.status(500).json(err);
-  }
-})
 
 router.get('/', async (req, res) => {
   try {
@@ -41,7 +27,27 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.get('/post/:id', async (req, res) => {
+// Use withAuth middleware to prevent access to route
+router.get('/post', withAuth, async (req, res) => {
+  try {
+    // Find the logged in user based on the session ID
+    const userData = await User.findByPk(req.session.userId, {
+      attributes: { exclude: ['password'] },
+      include: [{ model: Post }],
+    });
+
+    const user = userData.get({ plain: true });
+
+    res.render('dashboard', {
+      ...user,
+      logged_in: true
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+router.get('/post/:id', withAuth, async (req, res) => {
   try {
     const postData = await Post.findByPk(req.params.id, {
       include: [
@@ -63,26 +69,6 @@ router.get('/post/:id', async (req, res) => {
   }
 });
 
-// Use withAuth middleware to prevent access to route
-router.get('/post', withAuth, async (req, res) => {
-  try {
-    // Find the logged in user based on the session ID
-    const userData = await User.findByPk(req.session.user_id, {
-      attributes: { exclude: ['password'] },
-      include: [{ model: Post }],
-    });
-
-    const user = userData.get({ plain: true });
-
-    res.render('dashboard', {
-      ...user,
-      logged_in: true
-    });
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-
 router.get('/login', (req, res) => {
   // If the user is already logged in, redirect the request to another route
   if (req.session.logged_in) {
@@ -91,6 +77,31 @@ router.get('/login', (req, res) => {
   }
 
   res.render('login');
+});
+
+// router.get /dashboard
+router.get('/dashboard', withAuth, async (req, res) => {
+  try {
+    if (!req.session.logged_in) {
+      res.redirect('/login');
+      return;
+    }
+    console.log('session userId: ', req.session.userId);
+
+    const userData = await User.findByPk(req.session.userId, {
+      include: [
+        { model: Post, include: [Comment] },
+      ],
+    });
+
+    const user = userData.get({ plain: true });
+    console.log(user);
+
+    res.render('dashboard', { user, logged_in: true });
+  } catch (err) {
+    console.error('error: ', err.message);
+    res.status(500).json({ error: err.message });
+  }
 });
 
 module.exports = router;

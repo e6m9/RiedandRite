@@ -1,45 +1,29 @@
 const router = require('express').Router();
 const { User } = require('../../models');
 
-router.get('/', async (req, res) => {
-  try {
-      const userData = await User.findAll();
-      res.status(200).json(userData);
-  } catch (err) {
-      res.status(500).json(err);
-  }
-});
-
 router.post('/', async (req, res) => {
   try {
-    const userData = await User.create(req.body);
+    const { name, username, password } = req.body;
+    const userData = await User.create({ name, username, password });
 
+    req.session.userId = userData.id;
+    req.session.logged_in = true;
     req.session.save(() => {
-      req.session.user_id = userData.id;
-      req.session.logged_in = true;
-
-      res.status(200).json(userData);
+      res.status(200).json({ user: userData, message: 'User profile created successfully!' });
     });
   } catch (err) {
-    console.log(err);
     res.status(400).json(err);
   }
 });
 
-// update user
-
-
-
-// delete user
-
 router.post('/login', async (req, res) => {
   try {
-    const userData = await User.findOne({ where: { email: req.body.email } });
+    const userData = await User.findOne({ where: { username: req.body.username } });
 
     if (!userData) {
       res
         .status(400)
-        .json({ message: 'Incorrect email or password, please try again' });
+        .json({ message: 'Incorrect username or password, please try again' });
       return;
     }
 
@@ -48,19 +32,19 @@ router.post('/login', async (req, res) => {
     if (!validPassword) {
       res
         .status(400)
-        .json({ message: 'Incorrect email or password, please try again' });
+        .json({ message: 'Incorrect username or password, please try again' });
       return;
     }
 
     req.session.save(() => {
-      req.session.user_id = userData.id;
+      req.session.userId = userData.id;
+      req.session.username = userData.username;
       req.session.logged_in = true;
-      
-      res.json({ user: userData, message: 'You are now logged in!' });
+      res.redirect('/dashboard');
     });
 
   } catch (err) {
-    res.status(400).json(err);
+    res.status(500).json(err);
   }
 });
 

@@ -3,9 +3,8 @@ const newFormHandler = async (event) => {
 
   const title = document.querySelector('#post-title').value.trim();
   const body = document.querySelector('#post-body').value.trim();
-  const date = document.querySelector('#post-created').value.trim();
 
-  if (title && body && date) {
+  if (title && body) {
     const response = await fetch(`/api/posts`, {
       method: 'POST',
       body: JSON.stringify({ title, body, date }),
@@ -37,6 +36,7 @@ const delButtonHandler = async (event) => {
     }
   }
 };
+
 
 document
   .querySelector('.new-post-form')

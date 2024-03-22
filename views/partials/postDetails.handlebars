@@ -1,1 +1,16 @@
-{{!-- display post info --}}
+{{!-- display post details --}}
+<div class="post">
+  <div class="title">
+    <h2>
+      <a href="/post/{{post.id}}">{{post.title}}</a>
+    </h2>
+    <p>
+    </p>
+    <p>Created by {{post.username}} on {{format_date post.date_created}}</p>
+  </div>
+  <div class="post-body">
+    <p>
+      {{post.body}}
+    </p>
+  </div>
+</div>

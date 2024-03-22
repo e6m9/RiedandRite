@@ -1,47 +1,19 @@
-<div class="row">
-  <div class="col-auto">
+{{!-- display welcome, new post button, and user posts
+tie posts to user.id --}}
+<div>
+  <div>
     <h2>Welcome, {{username}}!</h2>
+    <button href="/dashboard/postCreate" type="submit" class="newbutton">new post<button>
   </div>
 </div>
 
-{{!-- create new post button
-posts as post
-post title as link to view post
- --}}
-
-<div class="row mt-4">
-  <div class="col-md-6">
-    <h3>Create a New Post:</h3>
-
-    <form class="form new-post-form">
-      <div class="form-group">
-        <label for="post-title">post title:</label>
-        <input class="form-input" type="text" id="post-title" name="post" />
-      </div>
-      <div class="form-group">
-        <label for="post-body">what are yr thoughts:</label>
-        <textarea class="form-input" id="post-body" name="post-body"></textarea>
-      </div>
-      <div class="form-group">
-        <button type="submit" class="btn btn-primary">Create</button>
-      </div>
-    </form>
-  </div>
-
+<div>
   {{#if posts.length}}
-  <div class="col-md-6 post-list">
+  <div class="post-list">
     <h3>yr posts:</h3>
 
     {{#each posts as |post|}}
-    <div class="row mb-2">
-      <div class="col-md-8">
-        <h4><a href="/post/{{post.id}}">{{post.title}}</a></h4>
-      </div>
-      <span>{{format_date createdAt}}</span>
-      <div class="col-md-4">
-        <button class="btn btn-sm btn-danger" data-id="{{post.id}}">DELETE</button>
-      </div>
-    </div>
+    {{> postDetails}}
     {{/each}}
   </div>
   {{/if}}

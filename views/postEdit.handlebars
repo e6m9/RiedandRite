@@ -2,3 +2,18 @@
 body field
 submit button
 delete button --}}
+<div class="card">
+  <h3 class="card-header">edit post</h3>
+  <form class="card-body edit-post-form">
+    <label for="post-title" class="form-label">title</label>
+    <input name="post-title" type="text" value="{{post.title}}" class="form-input" />
+    <label class="form-label" for="body">share yr thoughts</label>
+    <input name="body" type="text" value="{{post.body}}" class="form-input" />
+
+    <div>
+      <button type="submit" class="btn">update post</button>
+      <button class="btn" data-id="{{post.id}}">delete post</button>
+    </div>
+
+    <script src="/public/js/postEdit.js"></script>
+    <script src="/public/js/postDelete.js"

@@ -33,12 +33,12 @@ router.get('/:id', async (req, res) => {
 });
 
 // create a new post
-router.post('/', async (req,res) => {
-    const { title, body, userId } = req.body;
+router.post('/', withAuth, async (req,res) => {
+    const { title, body, } = req.body;
 
     try {
         // check if userId exists
-        const existingUser = await User.findByPk(userId);
+        const existingUser = await User.findByPk(req.session.userId);
 
         if (!existingUser) {
             return res.status(404).json({ message: 'user not found' });
@@ -47,11 +47,32 @@ router.post('/', async (req,res) => {
         const postData = await Post.create({
             title,
             body,
-            userId
+            createdAt
         });
 
         res.status(201).json(postData);
     } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
+// update route
+router.put('/post/:id', withAuth, async (req, res) => {
+    try {
+        const updatedPost = await Post.update(req.body, {
+            where: {
+                id: req.params.id,
+                userId: req.session.userId,
+            },
+        });
+
+        if (updatedPost > 0) {
+            res.status(200).json(updatedPost);
+        } else {
+            res.status(404).json({ message: 'Post not found or user not authorized' });
+        }
+    } catch (err) {
+        console.error(err);
         res.status(500).json(err);
     }
 });

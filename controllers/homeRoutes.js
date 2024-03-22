@@ -9,7 +9,7 @@ router.get('/', async (req, res) => {
       include: [
         {
           model: User,
-          attributes: ['name'],
+          attributes: ['username'],
         },
       ],
     });
@@ -53,7 +53,7 @@ router.get('/post/:id', withAuth, async (req, res) => {
       include: [
         {
           model: User,
-          attributes: ['name'],
+          attributes: ['username'],
         },
       ],
     });
@@ -80,28 +80,26 @@ router.get('/login', (req, res) => {
 });
 
 // router.get /dashboard
-router.get('/dashboard', withAuth, async (req, res) => {
-  try {
-    if (!req.session.logged_in) {
-      res.redirect('/login');
-      return;
-    }
-    console.log('session userId: ', req.session.userId);
+// router.get('/dashboard', withAuth, async (req, res) => {
+//   try {
+//     if (!req.session.logged_in) {
+//       res.redirect('/login');
+//       return;
+//     }
 
-    const userData = await User.findByPk(req.session.userId, {
-      include: [
-        { model: Post, include: [Comment] },
-      ],
-    });
+//     const userData = await User.findByPk(req.session.userId, {
+//       include: [
+//         { model: Post, include: [Comment] },
+//       ],
+//     });
 
-    const user = userData.get({ plain: true });
-    console.log(user);
+//     const user = userData.get({ plain: true });
 
-    res.render('dashboard', { user, logged_in: true });
-  } catch (err) {
-    console.error('error: ', err.message);
-    res.status(500).json({ error: err.message });
-  }
-});
+//     res.render('dashboard', { user, logged_in: true });
+//   } catch (err) {
+//     console.error('error: ', err.message);
+//     res.status(500).json({ error: err.message });
+//   }
+// });
 
 module.exports = router;

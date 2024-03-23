@@ -38,6 +38,28 @@ router.get('/', withAuth, async (req, res) => {
     }
 });
 
+router.get('/postEdit/:id', withAuth, async (req, res) => {
+    try {
+        const postData = await Post.findByPk(req.params.id, {
+            include: [{ model: User }]
+        });
+
+        if (!postData) {
+            res.status(404).json({ message: 'Could not find a post with this ID' });
+            return;
+        }
+
+        const post = postData.get({ plain: true });
+        console.log("Fetched Post Data:"); 
+        console.log(post); 
+        console.log("Post Title:", post.title); 
+        res.render('postEdit', { post, loggedIn: true });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json(err);
+    }
+});
+
 router.get('/postCreate', withAuth, async (req, res) => {
     console.log("Route /postCreate hit");
     try {

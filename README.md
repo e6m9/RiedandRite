@@ -1,14 +1,7 @@
 # RiedandRite
 a cms style blog site
 
-add navigation for dashboard on homepage
-add date created to posts
-set up new post page with option to edit or delete post
-set up edit page
-    move delete button to edit page
 set up a single post page for posts not made by user
-add files to public/js
-    addpost, comment, delete post, edit post
 add css file to public folder
 
 ## User Story

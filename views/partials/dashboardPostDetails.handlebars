@@ -2,31 +2,16 @@
 <div class="post">
     <div class="title">
         <h2>
-            <a href="/post/{{post.id}}">{{title}}</a>
+            <a href="/post/{{this.id}}">{{this.title}}</a>
         </h2>
-        <p>
-        </p>
-        <p>{{format_date date_created}}</p>
+        <p>{{format_date this.date_created}}</p>
     </div>
     <div class="post-body">
-        <p>
-            {{body}}
-        </p>
+        <p>{{this.body}}</p>
     </div>
+
+    <button type="button" class="edit-post-button" data-id="{{this.id}}">Edit Post</button>
+    <button type="button" class="delete-post-button" data-id="{{this.id}}">Delete Post</button>
 </div>
 
-<button id="editPostButton" type="button" class="edit-post-form">edit post</button>
-</div>
-<div>
-<button class="btn" data-id="{{post.id}}">delete post</button>
-</div>
-
-
-<script>
-    document.getElementById('editPostButton').addEventListener('click', function () {
-        window.location.href = '/dashboard/postEdit';
-    });
-</script>
-  
-
-<script src="/js/postDelete.js"></script>
+<script src="/js/postEdit.js"></script>

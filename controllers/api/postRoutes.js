@@ -21,7 +21,7 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
     try {
         const postData = await Post.findByPk(req.params.id, {
-            include: [{ model: User, model: Comment }]
+            include: [{ model: User }, { model: Comment, include: [User] }]
         });
 
         if (!postData) {
@@ -59,10 +59,33 @@ router.post('/', withAuth, async (req,res) => {
     }
 });
 
+router.get('/postEdit/:id', withAuth, async (req, res) => {
+    try {
+        const postData = await Post.findByPk(req.params.id, {
+            include: [{ model: User }]
+        });
+
+        if (!postData) {
+            res.status(404).json({ message: 'Could not find a post with this ID' });
+            return;
+        }
+
+        const post = postData.get({ plain: true });
+        console.log("Fetched Post Data:"); 
+        console.log(post); 
+        console.log("Post Title:", post.title); 
+        res.render('postEdit', { post, loggedIn: true });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json(err);
+    }
+});
+
+
 // update route
 router.put('/:id', withAuth, async (req, res) => {
     try {
-        const updatedPost = await Post.update(req.body, {
+        const updatedPost = await Post.update({
             title: req.body.title,
             body: req.body.body,
             where: {
@@ -71,7 +94,7 @@ router.put('/:id', withAuth, async (req, res) => {
             },
         });
 
-        if (updatedPost > 0) {
+        if (updatedPost[0] > 0) {
             res.status(200).json(updatedPost);
         } else {
             res.status(404).json({ message: 'Post not found or user not authorized' });

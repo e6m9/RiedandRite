@@ -1,19 +1,19 @@
-{{!-- header field
-body field
-submit button
-delete button --}}
+{{!-- edit post --}}
 <div class="card">
   <h3 class="card-header">edit post</h3>
-  <form class="card-body edit-form">
-    <label for="post-title" class="form-label">title</label>
-    <input name="post-title" type="text" value="{{post.title}}" class="form-input" />
-    <label class="form-label" for="body">share yr thoughts</label>
-    <input name="body" type="text" value="{{post.body}}" class="form-input" />
-
+  <form class="card-body edit-form" data-id="{{post.id}}">
+    <div>
+      <label for="post-title" class="form-label">title</label>
+      <input name="post-title" id="post-title" type="text" value="{{post.title}}" class="form-input" />
+    </div>
+    <div>
+      <label class="form-label" for="post-body">share yr thoughts</label>
+      <textarea name="body" id="post-body" class="form-input">{{post.body}}</textarea>
+    </div>
     <div>
       <button type="submit" class="btn">update post</button>
-      <button class="btn" data-id="{{post.id}}">delete post</button>
     </div>
+  </form>
+</div>
 
-    <script src="/public/js/postEdit.js"></script>
-    <script src="/public/js/postDelete.js"
+<script src="/js/postEdit.js"></script>

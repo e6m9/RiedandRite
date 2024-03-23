@@ -4,18 +4,18 @@ const withAuth = require('../utils/auth');
 
 // get route
 router.get('/', withAuth, async (req, res) => {
-    console.log("USERNAME:" + req.session.username)
     try {
         if (!req.session.logged_in) {
             res.redirect('/login');
             return;
         }
 
-        const postData = await Post.findAll({ where: { userId: req.session.userId },
+        const postData = await Post.findAll({
+            where: { userId: req.session.userId },
             include: [
                 {
-                    model: Comment, 
-                    include: [User] 
+                    model: Comment,
+                    include: [User]
                 }
             ],
         });
@@ -38,44 +38,49 @@ router.get('/', withAuth, async (req, res) => {
     }
 });
 
-// post route
-// router.post('/post', withAuth, async (req, res) => {
-//     try {
-//         const newPost = await Post.create({
-//             ...req.body,
-//             userId: req.session.userId,
-//         });
+router.get('/edit/:id', withAuth, async (req, res) => {
+    try {
+        const postData = await Post.findByPk(req.params.id, {
+            include: [{
+                model: User,
+            }, {
+                model: Comment,
+                include: {
+                    model: User,
+                }
+            }]
+        });
 
-//         res.status(200).json(newPost);
-//         res.render('dashboard',)
-//     } catch (err) {
-//         console.error(err);
-//         res.status(500).json(err);
-//     }
-// });
+        if (!postData) {
+            res.status(404).json({ message: 'Could not find a post with this ID' });
+            return;
+        }
 
+        const post = postData.get({ plain: true });
+        res.render('edit-post', { post, loggedIn: true });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json(err);
+    }
+});
 
+router.get('/postCreate', withAuth, async (req, res) => {
+    console.log("Route /postCreate hit");
+    try {
+        console.log("Attempting to render postCreate");
+        res.render('postCreate', { loggedIn: true, username: req.session.username });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('An error occurred');
+    }
+});
 
-// delete route
-// router.delete('/post/:id', withAuth, async (req, res) => {
-//     try {
-//         const deletedPost = await Post.destroy({
-//             where: {
-//                 id: req.params.id,
-//                 userId: req.session.userId,
-//             },
-//         });
-
-//         if (deletedPost) {
-//             res.status(200).json({ message: 'post deleted' });
-//         } else {
-//             res.status(404).json({ message: 'post not found or user not authorized' });
-//         }
-//     } catch (err) {
-//         console.error(err);
-//         res.status(500).json(err);
-//     }
-// });
-
+router.get('/postEdit', withAuth, async (req, res) => {
+    try {
+        res.render('postEdit', { loggedIn: true, username: req.session.username });
+    } catch (err) {
+        res.status(500).send('An error occurred');
+    }
+});
 
 module.exports = router;

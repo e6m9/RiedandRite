@@ -1,22 +1,23 @@
 {{!-- display welcome, new post button, and user posts
 tie posts to user.id --}}
 <div>
-  <div>
-    <h2>Welcome, {{username}}!</h2>
-    <button href="/dashboard/postCreate" type="submit" class="newbutton">new post<button>
-  </div>
+  <h2>Welcome, {{username}}!</h2>
 </div>
 
-<div>
-  {{#if posts.length}}
-  <div class="post-list">
-    <h3>yr posts:</h3>
+{{#if posts.length}}
 
-    {{#each posts as |post|}}
-    {{> postDetails}}
-    {{/each}}
-  </div>
-  {{/if}}
+<div class="post-list">
+  <h3>yr posts:</h3>
+  {{#each posts as |post|}}
+  {{> dashboardPostDetails}}
+  {{/each}}
 </div>
+{{/if}}
 
-<script src="./js/dashboard.js"></script>
+<button id="newPostButton" type="button" class="new-post-form">new post</button>
+
+<script>
+document.getElementById('newPostButton').addEventListener('click', function() {
+  window.location.href = '/dashboard/postCreate';
+});
+</script>

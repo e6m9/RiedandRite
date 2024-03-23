@@ -2,15 +2,15 @@
 <div class="post">
   <div class="title">
     <h2>
-      <a href="/post/{{post.id}}">{{post.title}}</a>
+      <a href="/post/{{post.id}}">{{title}}</a>
     </h2>
     <p>
     </p>
-    <p>Created by {{post.username}} on {{format_date post.date_created}}</p>
+    <p>Created by {{user.username}} on {{format_date date_created}}</p>
   </div>
   <div class="post-body">
     <p>
-      {{post.body}}
+      {{body}}
     </p>
   </div>
 </div>

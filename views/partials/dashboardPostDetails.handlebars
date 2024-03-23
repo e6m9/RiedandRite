@@ -1,0 +1,24 @@
+{{!-- display post details --}}
+<div class="post">
+  <div class="title">
+    <h2>
+      <a href="/post/{{post.id}}">{{title}}</a>
+    </h2>
+    <p>
+    </p>
+    <p>{{format_date date_created}}</p>
+  </div>
+  <div class="post-body">
+    <p>
+      {{body}}
+    </p>
+  </div>
+</div>
+
+<button id="editPostButton" type="button" class="edit-post-form">edit post</button>
+
+<script>
+document.getElementById('editPostButton').addEventListener('click', function() {
+  window.location.href = '/dashboard/postEdit';
+});
+</script>

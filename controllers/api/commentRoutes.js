@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { Comment, User } = require('../../models');
+const withAuth = require('../../utils/auth');
 
 // api/comments endpoint
 
@@ -33,9 +34,8 @@ router.get('/:id', async (req, res) => {
 });
 
 // create a new comment
-router.post('/', async (req,res) => {
+router.post('/', withAuth, async (req,res) => {
     const { title, body, userId } = req.body;
-
     try {
         // check if userId exists
         const existingUser = await User.findByPk(userId);
@@ -57,7 +57,7 @@ router.post('/', async (req,res) => {
 });
 
 // delete a comment
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', withAuth, async (req, res) => {
     try {
         const deletedcomment = await Comment.destroy({
             where: {

@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { Post, Comment, User } = require('../../models');
+const withAuth = require('../../utils/auth');
 
 // api/posts endpoint
 
@@ -7,7 +8,8 @@ const { Post, Comment, User } = require('../../models');
 router.get('/', async (req, res) => {
     try {
         const postData = await Post.findAll({
-            include: [{ model: User }]
+            include: [{ model: User }],
+            // order: ['date_created', 'DESC']
         });
         res.status(200).json(postData);
     } catch (err) {
@@ -34,11 +36,12 @@ router.get('/:id', async (req, res) => {
 
 // create a new post
 router.post('/', withAuth, async (req,res) => {
-    const { title, body, } = req.body;
+    const { title, body } = req.body;
+    const userId = req.session.userId;
 
     try {
         // check if userId exists
-        const existingUser = await User.findByPk(req.session.userId);
+        const existingUser = await User.findByPk(userId);
 
         if (!existingUser) {
             return res.status(404).json({ message: 'user not found' });
@@ -47,7 +50,7 @@ router.post('/', withAuth, async (req,res) => {
         const postData = await Post.create({
             title,
             body,
-            createdAt
+            userId,
         });
 
         res.status(201).json(postData);
@@ -57,9 +60,11 @@ router.post('/', withAuth, async (req,res) => {
 });
 
 // update route
-router.put('/post/:id', withAuth, async (req, res) => {
+router.put('/:id', withAuth, async (req, res) => {
     try {
         const updatedPost = await Post.update(req.body, {
+            title: req.body.title,
+            body: req.body.body,
             where: {
                 id: req.params.id,
                 userId: req.session.userId,
@@ -78,7 +83,7 @@ router.put('/post/:id', withAuth, async (req, res) => {
 });
 
 // delete a post
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', withAuth, async (req, res) => {
     try {
         const deletedPost = await Post.destroy({
             where: {

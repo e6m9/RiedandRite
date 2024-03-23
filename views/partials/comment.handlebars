@@ -2,9 +2,9 @@
 <div class="comment">
     {{#each this}}
     <div>
-        <section>
-            <div>
-                {{comment.body}}
+        <section class="comment-body">
+            <div class="text">
+                {{comment_body}}
             </div>
             <div>
                 by {{username}} on {{format_date createdAt}}

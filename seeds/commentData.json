@@ -1,17 +1,22 @@
 [
     {
-        "postId": 1,
+        "body": "I have given so much blood and sweat and tears for this cause. what have you given?",
         "userId": 1,
-        "body": "I have given so much blood and sweat and tears for this cause. what have you given?"
+        "postId": 1
     },
     {
-        "postId": 1,
+        "body": "I don't know who you think you are, but I lost EVERYTHING!",
         "userId": 2,
-        "body": "I don't know who you think you are, but I lost EVERYTHING!"
+        "postId": 1
     },
     {
-        "postId": 2,
+        "body": "lol",
         "userId": 3,
-        "body": "lol"
+        "postId": 1
+    },
+    {
+        "body": "I don't know about the Union, but did you see that dragon flying around? pretty sick, yo",
+        "userId": 3,
+        "postId": 2
     }
 ]

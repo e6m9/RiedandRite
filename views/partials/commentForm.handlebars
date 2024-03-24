@@ -1,4 +1,4 @@
-{{!-- display single post and comment form --}}
+display single post and comment form
 {{> postDetails post }}
 
 {{#if loggedIn}}
@@ -14,8 +14,6 @@
     </form>
 </div>
 {{/if}}
-
-{{> comment post.comment }}
 
 {{#if loggedIn}}
 <script src="/public/js/comment.js"></script>

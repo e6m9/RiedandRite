@@ -2,16 +2,16 @@
 <div class="post">
     <div class="title">
         <h2>
-            <a href="/post/{{this.id}}">{{this.title}}</a>
+            <a href="/post/{{post.id}}">{{post.title}}</a>
         </h2>
-        <p>{{format_date this.date_created}}</p>
+        <p>{{format_date post.date_created}}</p>
     </div>
     <div class="post-body">
-        <p>{{this.body}}</p>
+        <p>{{post.body}}</p>
     </div>
 
-    <button type="button" class="edit-post-button" data-id="{{this.id}}">Edit Post</button>
-    <button type="button" class="delete-post-button" data-id="{{this.id}}">Delete Post</button>
+    <button type="button" class="edit-post-button" data-id="{{post.id}}">Edit Post</button>
+    <button type="button" class="delete-post-button" data-id="{{post.id}}">Delete Post</button>
 </div>
 
 <script src="/js/postEdit.js"></script>

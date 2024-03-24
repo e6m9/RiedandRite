@@ -2,41 +2,39 @@
 include comments and comment form--}}
 <div class="post-box">
   <div class="title">
-    <h2>{{title}}</h2>
+    <h2><a href="/post/{{post.id}}">{{title}}</a></h2>
     <p>posted by {{post.user.username}} on {{format_date post.date_created}}</p>
   </div>
   <div class="post-body">
-    <p>{{body}}</p>
+    <p>{{post.body}}</p>
   </div>
 
   {{#if post.comments}}
   <div class="comment-box">
     {{#each post.comments as |comment|}}
     <div class="comment-body">
-      <p>{{comment.body}}</p>
       <p>comment by {{comment.user.username}} on {{format_date comment.date_created}}</p>
+      <p>{{comment.body}}</p>
     </div>
     {{/each}}
   </div>
   {{/if}}
 
   {{#if loggedIn}}
-<div class="card">
+  <div class="card">
     <h3 class="card-header"></h3>
     <form class="card-body comment-form" id="comment-form">
 
-        <label class="form-label">Comment</label>
-        <input id="comment" name="comment-body" class="form-input" />
-        <div class="form-button-layout">
+      <label class="form-label">Comment</label>
+      <input id="comment" name="comment-body" class="form-input" />
+      <div class="form-button-layout">
         <button type="submit" class="btn">submit comment</button>
-        </div>
+      </div>
     </form>
-</div>
-{{/if}}
+  </div>
+  {{/if}}
 
-{{> commentForm post.comment }}
-
-{{#if loggedIn}}
-<script src="/js/comment.js"></script>
-{{/if}}
+  {{#if loggedIn}}
+  <script src="/js/comment.js"></script>
+  {{/if}}
 </div>

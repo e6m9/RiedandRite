@@ -67,10 +67,10 @@ router.get('/post', withAuth, async (req, res) => {
 router.get('/post/:id', async (req, res) => {
   try {
     const postData = await Post.findByPk(req.params.id, {
-      include: [{ model: User, attributes: ['username'] },
-      {
-        model: Comment, include: [{ model: User, attributes: ['username'] }]
-      }]
+      include: [
+        { model: User, attributes: ['username'] },
+        { model: Comment, include: [{ model: User, attributes: ['username'] }] }
+      ]
     });
 
     if (!postData) {
@@ -78,7 +78,7 @@ router.get('/post/:id', async (req, res) => {
       return
     }
     const post = postData.get({ plain: true });
-    res.render('postDetails', { post});
+    res.render('postDetails', { post });
   } catch (err) {
     res.status(500).json(err);
   }

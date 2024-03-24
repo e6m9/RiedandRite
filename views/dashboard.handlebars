@@ -1,5 +1,4 @@
-{{!-- display welcome, new post button, and user posts
-tie posts to user.id --}}
+{{!-- display welcome, new post button, and user posts --}}
 <div>
   <h2>Welcome, {{username}}!</h2>
 </div>
@@ -9,7 +8,7 @@ tie posts to user.id --}}
 <div class="post-list">
   <h3>yr posts:</h3>
   {{#each posts as |post|}}
-  {{> dashboardPostDetails}}
+  {{> dashboardPostDetails post=post }}
   {{/each}}
 </div>
 {{/if}}

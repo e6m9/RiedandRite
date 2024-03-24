@@ -35,7 +35,9 @@ router.get('/:id', async (req, res) => {
 
 // create a new comment
 router.post('/', withAuth, async (req,res) => {
-    const { title, body, userId } = req.body;
+    const { title, body } = req.body;
+    const userId = req.session.userId;
+    
     try {
         // check if userId exists
         const existingUser = await User.findByPk(userId);

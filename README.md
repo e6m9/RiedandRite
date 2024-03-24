@@ -2,6 +2,8 @@
 a cms style blog site
 
 set up a single post page for posts not made by user
+    allow for comments to be made
+    show comments on post page
 add css file to public folder
 
 ## User Story

@@ -1,25 +1,32 @@
-const commentFormHandler = async (event) => {
-    event.preventDefault();
+document.addEventListener('DOMContentLoaded', () => {
+    const commentForm = document.getElementById('comment-form');
 
-    const commentBody = document.querySelector('#comment-body').value.trim();
+    if (commentForm) {
+        commentForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
 
-    const id = event.target.getAttribute('data-id');
+            const postId = window.location.pathname.split('/').pop();
+            const body = document.getElementById('comment').value.trim();
 
-    if (commentBody) {
-        const response = await fetch('/api/comment', {
-            method: 'POST',
-            body: JSON.stringify({ id, commentBody }),
-            headers: {
-                'Content-Type': 'application/json',
-            },
+            if (body) {
+                const response = await fetch('/api/comments', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        postId,
+                        body
+                    }),
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                if (response.ok) {
+                    document.getElementById('comment').value = '';
+                    window.location.reload();
+                } else {
+                    alert('failed to submit, plz log in');
+                }
+            }
         });
-
-        if (response.ok) {
-            document.location.reload();
-        } else {
-            alert('Failed to create comment');
-        }
     }
-}
-
-document.querySelector('.comment-form').addEventListener('submit', commentFormHandler);
+});

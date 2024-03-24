@@ -1,5 +1,5 @@
-document.addEventListener('DOMContentLoaded', function () {
-    document.body.addEventListener('click', function (event) {
+document.addEventListener('DOMContentLoaded', () => {
+    document.body.addEventListener('click', (event) => {
         if (event.target.matches('.edit-post-button')) {
             const postId = event.target.getAttribute('data-id');
             window.location.href = `/dashboard/postEdit/${postId}`;

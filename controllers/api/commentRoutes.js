@@ -35,9 +35,9 @@ router.get('/:id', async (req, res) => {
 
 // create a new comment
 router.post('/', withAuth, async (req,res) => {
-    const { title, body } = req.body;
+    const { body, postId } = req.body;
     const userId = req.session.userId;
-    
+
     try {
         // check if userId exists
         const existingUser = await User.findByPk(userId);
@@ -47,13 +47,14 @@ router.post('/', withAuth, async (req,res) => {
         }
 
         const commentData = await Comment.create({
-            title,
             body,
+            postId,
             userId
         });
 
         res.status(201).json(commentData);
     } catch (err) {
+        console.error('Error creating comment:', err);
         res.status(500).json(err);
     }
 });

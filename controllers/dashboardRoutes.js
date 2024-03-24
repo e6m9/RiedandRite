@@ -21,16 +21,17 @@ router.get('/', withAuth, async (req, res) => {
         });
 
         if (!postData) {
-            res.status(404).send('user not found');
+            res.status(404).send('no posts found');
             return;
         }
 
         const posts = postData.map(post => post.get({ plain: true }));
 
+        console.log('goin to the dashboard, logged_in status:', req.session.logged_in);
         res.render('dashboard', {
             username: req.session.username,
-            loggedIn: req.session.logged_in,
-            posts
+            posts,
+            logged_in: req.session.logged_in,
         });
     } catch (err) {
         console.error(err);
@@ -50,10 +51,7 @@ router.get('/postEdit/:id', withAuth, async (req, res) => {
         }
 
         const post = postData.get({ plain: true });
-        console.log("Fetched Post Data:"); 
-        console.log(post); 
-        console.log("Post Title:", post.title); 
-        res.render('postEdit', { post, loggedIn: true });
+        res.render('postEdit', { post, logged_in: true });
     } catch (err) {
         console.log(err);
         res.status(500).json(err);
@@ -64,7 +62,7 @@ router.get('/postCreate', withAuth, async (req, res) => {
     console.log("Route /postCreate hit");
     try {
         console.log("Attempting to render postCreate");
-        res.render('postCreate', { loggedIn: true, username: req.session.username });
+        res.render('postCreate', { logged_in: true, username: req.session.username });
     } catch (err) {
         console.error(err);
         res.status(500).send('An error occurred');
@@ -73,7 +71,7 @@ router.get('/postCreate', withAuth, async (req, res) => {
 
 router.get('/postEdit', withAuth, async (req, res) => {
     try {
-        res.render('postEdit', { loggedIn: true, username: req.session.username });
+        res.render('postEdit', { logged_in: true, username: req.session.username });
     } catch (err) {
         res.status(500).send('An error occurred');
     }

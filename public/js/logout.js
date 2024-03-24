@@ -1,14 +1,19 @@
-const logout = async () => {
-  const response = await fetch('/api/users/logout', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-  });
+document.addEventListener('DOMContentLoaded', () => {
+  const logoutButton = document.getElementById('logout');
+  if (logoutButton) {
+    logoutButton.addEventListener('click', async () => {
+      const response = await fetch('/api/users/logout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+      });
 
-  if (response.ok) {
-    document.location.replace('/');
+      if (response.ok) {
+        document.location.replace('/login');
+      } else {
+        alert('Failed to log out.');
+      }
+    });
   } else {
-    alert(response.statusText);
+    console.error('Logout button not found');
   }
-};
-
-document.querySelector('#logout').addEventListener('click', logout);
+});

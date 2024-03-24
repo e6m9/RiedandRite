@@ -40,7 +40,6 @@ router.get('/login', (req, res) => {
     res.redirect('/dashboard');
     return;
   }
-
   res.render('login');
 });
 
@@ -78,7 +77,10 @@ router.get('/post/:id', async (req, res) => {
       return
     }
     const post = postData.get({ plain: true });
-    res.render('postDetails', { post });
+    res.render('postDetails', { 
+      post, 
+      logged_in: req.session.logged_in || false
+    });
   } catch (err) {
     res.status(500).json(err);
   }

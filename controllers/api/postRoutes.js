@@ -4,35 +4,26 @@ const withAuth = require('../../utils/auth');
 
 // api/posts endpoint
 
-// get all posts with associated user data
-router.get('/', async (req, res) => {
+// Use withAuth middleware to prevent access to route
+router.get('/post', withAuth, async (req, res) => {
     try {
-        const postData = await Post.findAll({
-            include: [{ model: User }],
-            // order: ['date_created', 'DESC']
-        });
-        res.status(200).json(postData);
+      // Find the logged in user based on the session ID
+      const userData = await User.findByPk(req.session.userId, {
+        attributes: { exclude: ['password'] },
+        include: [{ model: Post }],
+      });
+  
+      const user = userData.get({ plain: true });
+  
+      res.render('dashboard', {
+        ...user,
+        logged_in: true
+      });
     } catch (err) {
-        res.status(500).json(err);
+      res.status(500).json(err);
     }
-});
+  });
 
-// get one post using post id
-router.get('/:id', async (req, res) => {
-    try {
-        const postData = await Post.findByPk(req.params.id, {
-            include: [{ model: User }, { model: Comment, include: [User] }]
-        });
-
-        if (!postData) {
-            res.status(404).json({ message: 'there is no post with that id'});
-            return;
-        }
-        res.status(200).json(postData);
-    } catch (err) {
-        res.status(500).json(err);
-    }
-});
 
 // create a new post
 router.post('/', withAuth, async (req,res) => {

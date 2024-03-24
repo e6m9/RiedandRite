@@ -1,5 +1,4 @@
-{{!-- display post details
-include comments and comment form--}}
+{{!-- display post details --}}
 <div class="post-box">
   <div class="title">
     <h2><a href="/post/{{post.id}}">{{title}}</a></h2>
@@ -20,7 +19,6 @@ include comments and comment form--}}
   </div>
   {{/if}}
 
-  {{#if loggedIn}}
   <div class="card">
     <h3 class="card-header"></h3>
     <form class="card-body comment-form" id="comment-form">
@@ -28,13 +26,16 @@ include comments and comment form--}}
       <label class="form-label">Comment</label>
       <input id="comment" name="comment-body" class="form-input" />
       <div class="form-button-layout">
-        <button type="submit" class="btn">submit comment</button>
+        {{#if logged_in}}
+        <button type="submit" class="btn">say something</button>
+        {{else}}
+        <a href="/login">login to leave a comment</a>
+        {{/if}}
       </div>
     </form>
   </div>
-  {{/if}}
 
-  {{#if loggedIn}}
+  {{#if logged_in}}
   <script src="/js/comment.js"></script>
   {{/if}}
 </div>

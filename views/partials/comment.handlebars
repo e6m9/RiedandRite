@@ -1,11 +1,5 @@
-{{!-- display comment info --}}
-{{#if post.comments}}
-<div class="comment-box">
-    {{#each post.comments as |comment|}}
-    <div class="comment-body">
-        <p>comment by {{comment.user.username}} on {{format_date comment.date_created}}</p>
-        <p>{{comment.body}}</p>
-    </div>
-    {{/each}}
+{{!-- display comments --}}
+<div class="comment">
+      <p class="comment-author">by {{user.username}} on {{format_date createdAt}}</p>
+  <p class="comment-body">{{body}}</p>
 </div>
-{{/if}}

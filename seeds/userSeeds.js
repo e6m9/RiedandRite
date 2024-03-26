@@ -15,8 +15,15 @@ const userData = [
 ];
 
 module.exports = async () => {
-    await User.bulkCreate(userData, {
+    const createdUsers = await User.bulkCreate(userData, {
         individualHooks: true,
         returning: true,
     });
+
+    console.log("Created users:");
+    createdUsers.forEach(user => {
+        console.log(`ID: ${user.id}, Username: ${user.username}`);
+    });
+
+    return createdUsers;
 }

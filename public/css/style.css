@@ -119,7 +119,7 @@ h1 {
     font-size: large;
 }
 
-.new-post-btn {
+.new-post-btn, .edit-post-button, .delete-post-button {
     height: 40px;
     border-radius: 5px;
     background-color: var(--sec);

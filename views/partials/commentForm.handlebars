@@ -1,8 +1,8 @@
  {{!-- display comment form --}}
  <div>
     <h3>leave a comment</h3>
-    <form class="comment-form">
-      <textarea class="form-input"/></textarea>
+    <form class="comment-form" id="comment-form">
+      <textarea id="comment" class="form-input"></textarea>
       <div>
         {{#if logged_in}}
         <button type="submit" class="new-post-btn">say something</button>

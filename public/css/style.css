@@ -89,6 +89,14 @@ h1 {
     font-size: 24px;
 }
 
+.edit-title {
+    color: black;
+    width: 50%;
+    margin: auto;
+    display: block;
+    font-size: medium;
+}
+
 .details {
     color: var(--sec);
     font-size: medium;
@@ -107,6 +115,8 @@ h1 {
     padding: 10px;
     border: 2px solid var(--sec);
     resize: vertical;
+    color: black;
+    font-size: medium;
 }
 
 .btn {

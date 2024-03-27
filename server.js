@@ -4,9 +4,10 @@ const express = require('express');
 const session = require('express-session');
 const exphbs = require('express-handlebars');
 const helpers = require('./utils/helpers');
+const routes = require('./controllers');
 
-const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const sequelize = require('./config/connection');
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -19,6 +20,7 @@ const sess = {
   cookie: {
     maxAge: 600000,
     httpOnly: true,
+    secure: false,
     secure: process.env.NODE_ENV === "production",
     sameSite: 'strict',
   },
@@ -30,8 +32,6 @@ const sess = {
 };
 
 app.use(session(sess));
-
-const routes = require('./controllers');
 
 // Inform Express.js on which template engine to use
 app.engine('handlebars', hbs.engine);

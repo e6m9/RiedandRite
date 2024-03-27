@@ -78,13 +78,13 @@ h1 {
 }
 
 .title {
-    text-decoration: none;
+    text-decoration: underline;
     color: var(--qua);
     font-size: larger;
 }
 
 .post-title {
-    text-decoration: none;
+    text-decoration: underline;
     color: var(--qua);
     font-size: 24px;
 }
@@ -153,7 +153,7 @@ h1 {
 h2 {
     color: var(--qua);
     display: inline-block;
-    text-decoration: none;
+    text-decoration: underline;
     padding-right: 6px;
     padding-left: 10px;
     padding-bottom: 3px;
@@ -218,7 +218,7 @@ footer {
 .footer-link {
     display: inline-block;
     background-color: var(--pri);
-    text-decoration: none;
+    text-decoration: underline;
     color: var(--qua);
     font-size: 24px;
     padding-bottom: 4px;

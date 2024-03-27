@@ -2,23 +2,40 @@
     --pri: teal;
     --sec: lightblue;
     --ter: purple;
-    --qua: gold; 
+    --qua: gold;
     --text: white;
 }
 
 * {
-    /* background-color: black; */
-    font-family:'Arial', 'Helvetica', sans-serif;
+    font-family: 'Arial', 'Helvetica', sans-serif;
     box-sizing: border-box;
-    margin: 4px;
+    margin: 0px;
 }
 
 body {
+    background-color: black;
+    height: 100vh;
     border-color: var(--sec);
-    /* border-top: 10px solid var(--pri);
-    border-bottom: 10px solid var(--pri);
+    border-top: 10px solid var(--pri);
+    overflow-y: hidden;
+    /* padding-bottom: 30px; */
+    /* border-bottom: 10px solid var(--pri);
     border-left: 10px solid var(--pri);
     border-right: 10px solid var(--pri) */
+}
+
+main {
+    flex: 1;
+    height: 100vh;
+    padding-bottom: 30px;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    /* min-height: 100vh; */
 }
 
 .banner {
@@ -36,19 +53,173 @@ body {
 
 h1 {
     justify-content: flex-start;
-    color: var(--qua);
-    padding: 0px;
-} 
+}
 
-/* h2 {
+.nav {
+    text-align: right;
+    border-top: 6px solid var(--ter);
+    border-bottom: 6px solid var(--ter);
+}
+
+.dash-link {
+    display: inline-block;
+    background-color: black;
+    text-decoration: none;
+    color: var(--qua);
+    font-size: 24px;
+    padding-bottom: 4px;
+}
+
+.post-box,
+.comment-box {
+    background-color: black;
+    border: 4px solid var(--sec);
+    padding: 4px;
+}
+
+.title {
+    text-decoration: none;
+    color: var(--qua);
+    font-size: larger;
+}
+
+.post-title {
+    text-decoration: none;
+    color: var(--qua);
+    font-size: 24px;
+}
+
+.details {
     color: var(--sec);
+    font-size: medium;
+    padding-left: 50px;
+}
+
+.post-body,
+.comment-body {
+    color: var(--text);
+    padding-left: 100px;
+}
+
+.form-input {
+    width: 60%;
+    height: 100px;
+    padding: 10px;
+    border: 2px solid var(--sec);
+    resize: vertical;
+}
+
+.btn {
+    width: 80px;
+    height: 40px;
+    border-radius: 5px;
+    background-color: var(--sec);
+    color: var(--ter);
+    font-weight: bolder;
+    font-size: large;
+}
+
+.new-post-btn {
+    height: 40px;
+    border-radius: 5px;
+    background-color: var(--sec);
+    color: var(--ter);
+    font-weight: bolder;
+    font-size: medium;
+}
+
+.login-form,
+.signup-form {
+    margin: 20px;
+}
+
+.login,
+.logout {
+    text-decoration: none;
+    color: var(--qua);
+    font-size: large;
+}
+
+h2 {
+    color: var(--qua);
     display: inline-block;
     text-decoration: none;
     padding-right: 6px;
     padding-left: 10px;
+    padding-bottom: 3px;
+}
+
+.login-form,
+.signup-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    border: 3px solid var(--sec);
+    padding: 6px;
+}
+
+.login-text {
+    color: var(--text);
+    padding: 2px;
+}
+
+#password-text {
+    margin: 1px;
+}
+
+.post {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: left;
+    width: 100%;
+    border: 3px solid var(--sec);
+    padding: 6px;
+}
+
+.post-area {
+    width: 100%;
+    height: 300px;
+    overflow-y: auto;
+}
+
+.btn-box {
+    display: flex;
+    justify-content: left;
+    gap: 10px;
+}
+
+.dash-btn {
+    display: flex;
+    justify-content: center;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    background-color: var(--pri);
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.footer-link {
+    display: inline-block;
+    background-color: var(--pri);
+    text-decoration: none;
+    color: var(--qua);
+    font-size: 24px;
+    padding-bottom: 4px;
 }
 
 h3 {
+    color: var(--qua);
+    font-size: 24px;
+}
+
+/* h3 {
     font-size: xx-large;
     color: var(--sec);
     padding-left: 20px;

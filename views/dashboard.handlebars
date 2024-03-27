@@ -6,14 +6,16 @@
 {{#if posts.length}}
 
 <div class="post-list">
-  <h3>yr posts:</h3>
+  <h2>yr posts:</h2>
   {{#each posts as |post|}}
   {{> dashboardPostDetails post=post }}
   {{/each}}
 </div>
 {{/if}}
 
-<button id="newPostButton" type="button" class="new-post-form">new post</button>
+<div class="dash-btn">
+  <button id="newPostButton" type="button" class="new-post-btn">new post</button>
+</div>
 
 <script>
   document.getElementById('newPostButton').addEventListener('click', function () {

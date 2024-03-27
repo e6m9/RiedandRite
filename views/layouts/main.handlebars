@@ -5,35 +5,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./assets/reset.css"/>
+  <link rel="stylesheet" href="./assets/reset.css" />
   <link rel="stylesheet" href="/css/style.css">
   <title>Ried&Rite</title>
 </head>
 
 <body>
-  <div>
+  <div clas="container">
     <header>
       <div class="banner">
-      <h1>
-        <a href="/" class="banner-link">Reid&Rite</a>
-      </h1>
+        <h1>
+          <a href="/" class="banner-link">--Ried&Rite</a>
+        </h1>
       </div>
-      <nav>
-        <a href="/dashboard">dashboard</a>
+      <div class="nav">
+        <a href="/dashboard" class="dash-link">--dashboard--</a>
         <!-- Conditionally render login or logout links -->
         {{#if logged_in}}
-        <button class="no-button" id="logout">logout</button>
+        <a href="/login" class="dash-link" id="logout">--logout--</a>
         {{else}}
-        <a href="/login">login</a>
+        <a href="/login" class="dash-link">--login--</a>
         {{/if}}
-      </nav>
+      </div>
     </header>
-    <main class="container container-fluid mt-5">
+    <main>
       <!-- Render the sub layout -->
       {{{ body }}}
     </main>
     <footer>
-
+      <a href="https://github.com/e6m9" class="footer-link">
+        <h4>do something worth doing. coding and design by e6m9</h4>
+      </a>
     </footer>
   </div>
 

@@ -1,8 +1,8 @@
 {{!-- display posts --}}
 <div class="post-box">
-  <div class="title">
-    <h2><a href="/post/{{id}}">{{post.title}}</a></h2>
-    <p>posted by {{post.user.username}} on {{format_date post.date_created}}</p>
+  <div>
+    <h2><a href="/post/{{id}}" class="title">{{post.title}}</a></h2>
+    <p class="details">posted by {{post.user.username}} on {{format_date post.date_created}}</p>
   </div>
   <div class="post-body">
     <p>{{post.body}}</p>

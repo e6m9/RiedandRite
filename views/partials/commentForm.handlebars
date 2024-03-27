@@ -1,15 +1,13 @@
  {{!-- display comment form --}}
- <div class="card">
-    <h3 class="card-header">leave a comment</h3>
-    <form class="card-body comment-form" id="comment-form">
-
-      <label class="title">comment</label>
-      <input id="comment" name="comment-body" class="form-input" />
-      <div class="form-button-layout">
+ <div>
+    <h3>leave a comment</h3>
+    <form class="comment-form">
+      <textarea class="form-input"/></textarea>
+      <div>
         {{#if logged_in}}
-        <button type="submit" class="btn">say something</button>
+        <button type="submit" class="new-post-btn">say something</button>
         {{else}}
-        <a href="/login">login to leave a comment</a>
+        <a href="/login" class="login">login to leave a comment</a>
         {{/if}}
       </div>
     </form>

@@ -14,9 +14,9 @@ const PORT = process.env.PORT || 3001;
 
 // Set up Handlebars.js engine with custom helpers
 const hbs = exphbs.create({helpers});
-
+const secret = "some secrets come with us to the grave"
 const sess = {
-  secret: 'Super secret secret',
+  secret: secret,
   cookie: {
     maxAge: 600000,
     httpOnly: true,

@@ -21,7 +21,6 @@ const sess = {
     maxAge: 600000,
     httpOnly: true,
     secure: false,
-    secure: process.env.NODE_ENV === "production",
     sameSite: 'strict',
   },
   resave: false,
